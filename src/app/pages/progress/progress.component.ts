@@ -21,4 +21,7 @@ export class ProgressComponent {
     }
     this.progreso = this.progreso + valor;
   }
+  guardar(){
+    localStorage.setItem('marca','marcador');
+  }
 }
