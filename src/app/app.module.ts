@@ -19,10 +19,11 @@ import { AuthModule } from './auth/auth.module';
     BrowserModule,
     AppRoutingModule,
     PagesModule,
-    AuthModule
+    AuthModule,
   ],
   providers: [
     provideClientHydration()
+
   ],
   bootstrap: [AppComponent]
 })

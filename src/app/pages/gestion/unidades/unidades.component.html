@@ -1,0 +1,62 @@
+<div class="row animated fadeIn fast">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <input type="text" class="form-control" placeholder="Buscar" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row animated fadeIn fast" *ngIf="cargando">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="alert alert-info text-center" role="alert">
+          <h4 class="alert-heading">Cargando</h4>
+          <i class="fa fa-spin fa-refresh fa-2x"></i>
+          <p class="mb-0">Por favor espere...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="!cargando">
+  <div class="col-12 mb-4">
+    <button class="btn btn-primary">
+      Nuevo
+    </button>
+  </div>
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Unidad </h4>
+        <h6 class="card-subtitle">Unidades Registradas</h6>
+        <div>
+          <div class="form-group row justify-content-end">
+            <label for="" class="control-label col-2 text-right align-content-center mb-0">Buscar :</label>
+            <div class="col-4">
+              <input type="text"
+              id="filter-text"
+              class="form-control"
+              (input)="onFilterTextChanged()">
+            </div>
+          </div>
+        </div>
+        <ag-grid-angular
+        #gridUnidad
+        class="ag-theme-quartz"
+        [localeText]="localText"
+        [rowData]="unidades"
+        [getRowId]="getRowId"
+        [columnDefs]="colDefs"
+        [defaultColDef]="defaultColDef"
+        [pagination]="true"
+        [paginationPageSize]="paginationPageSize"
+        [paginationPageSizeSelector]="paginationPageSizeSelector"
+        ></ag-grid-angular>
+      </div>
+    </div>
+  </div>
+  <!-- <app-creaup-unidad (unidadChange)="modalChange($event)" [title]="estadoTitulo" ></app-creaup-unidad> -->
+</div>

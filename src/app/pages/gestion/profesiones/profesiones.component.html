@@ -1,0 +1,37 @@
+<div class="row animated fadeIn fast" *ngIf="cargando">
+  <div class="col-12">
+    <div class="card">
+      <div class="c ard-body">
+        <div class="alert alert-info text-center" role="alert">
+          <h4 class="alert-heading">Cargando</h4>
+          <i class="fa fa-spin fa-refresh fa-2x"></i>
+          <p class="mb-0">Por favor espere...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="!cargando">
+  <div class="col-12 mb-4">
+    <button type="button" class="btn btn-primary" (click)="stateModal = false;">nuevo</button>
+  </div>
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Lista de Profesiones</h4>
+        <h6 class="card-subtitle">profesiones registradas:</h6>
+        <ag-grid-angular #gridProfesion
+          style="width: 100%; height: 100%"
+          class="ag-theme-quartz"
+          [localeText]="localText"
+          [rowData]="rowData"
+          [getRowId]="getRowId"
+          [columnDefs]="colDefs"
+          [defaultColDef]="defaultColDef"
+          [pagination]="true"
+        ></ag-grid-angular>
+      </div>
+    </div>
+  </div>
+  <app-modal-profesion (updateTable)="updateTable($event)" [title]="title" [(stateModal)]="stateModal"></app-modal-profesion>
+</div>

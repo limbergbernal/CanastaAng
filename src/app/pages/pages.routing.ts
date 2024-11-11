@@ -6,6 +6,10 @@ import { ProgressComponent } from './progress/progress.component';
 import { Grafica1Component } from './grafica1/grafica1.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { authGuard } from '../guards/auth.guard';
+import { BarriosComponent } from './gestion/barrios/barrios.component';
+import { UnidadesComponent } from './gestion/unidades/unidades.component';
+import { ProfesionesComponent } from './gestion/profesiones/profesiones.component';
 
 
 
@@ -13,13 +17,17 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: PagesComponent,
+    canActivate:[authGuard],
     children: [
       { path: '', component: DashboardComponent, data:{titulo: 'Dashboard'} },
       { path: 'progress', component: ProgressComponent, data:{titulo: 'ProgressBar'} },
       { path: 'grafica1', component: Grafica1Component, data:{titulo: 'Grafica'} },
       { path: 'account-settings', component: AccountSettingsComponent, data:{titulo: 'Ajustes de Cuenta'}},
-      { path: 'rxjs', component: RxjsComponent, data:{titulo: 'Rxjs'}}
+      { path: 'rxjs', component: RxjsComponent, data:{titulo: 'Rxjs'}},
       // { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+      { path: 'barrios', component: BarriosComponent, data:{titulo: 'Barrios y Comunidades'}},
+      { path: 'unidades', component: UnidadesComponent, data:{titulo: 'Unidades'}},
+      { path: 'profesiones', component: ProfesionesComponent, data: {titulo: 'Profesiones'}}
     ],
   },
 

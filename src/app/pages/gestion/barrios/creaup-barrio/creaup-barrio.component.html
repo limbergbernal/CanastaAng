@@ -1,0 +1,55 @@
+<div [class.oculto]="stateModal" class="fondo-modal animated fadeIn fast">
+  <form [formGroup]="barrioForm" (ngSubmit)="save()">
+    <app-modal-structure [title]="title ? 'Nuevo Barrio/Comunidad':'Editar Barrio/Comunidad' ">
+      <div ngProjectAs="card-content">
+        <div class="row">
+          <div class="col-sm-12 col-xs-12">
+            <div class="form-group" [class.has-danger]="barrioForm.get('nombre').invalid && barrioForm.get('nombre').touched">
+              <label class="form-control-label" for="nombre">Nombre Barrio o Comunidad</label>
+              <input type="text" formControlName="nombre" class="form-control" id="nombre" placeholder="Nombre del barrio o comunidad" />
+              <div *ngIf="barrioForm.get('nombre').invalid && barrioForm.get('nombre').touched">
+                <div *ngIf="barrioForm.get('nombre').hasError('required')" class="form-control-feedback">El barrio/comunidad es requerido.</div>
+              </div>
+            </div>
+            <div class="form-group" [class.has-danger]="barrioForm.get('tipo').invalid && barrioForm.get('tipo').touched">
+              <label class="form-control-label" for="tipo">Tipo</label>
+              <select name="" id="" class="form-control" formControlName="tipo">
+                <option [ngValue]="null" disabled>Selecciona una opcion</option>
+                <option *ngFor="let tipo of tipos; let i = index" value="{{ tipo.key }}">{{ tipo.value }}</option>
+              </select>
+              <div *ngIf="barrioForm.get('tipo').invalid && barrioForm.get('tipo').touched">
+                <div *ngIf="barrioForm.get('tipo').hasError('required')" class="form-control-feedback">El barrio/comunidad es requerido.</div>
+              </div>
+            </div>
+            <div class="form-group" [class.has-danger]="barrioForm.get('distrito').invalid && barrioForm.get('distrito').touched">
+              <label class="form-control-label" for="distrito">Distrito</label>
+              <select name="distritos" id="distr" class="form-control" formControlName="distrito">
+                <option [ngValue]="null" disabled>Selecciona una opcion</option>
+                <option *ngFor="let distrito of distritos; let i = index" [value]="distrito">{{ 'Distrito ' + distrito }}</option>
+              </select>
+              <div *ngIf="barrioForm.get('distrito').invalid && barrioForm.get('distrito').touched">
+                <div *ngIf="barrioForm.get('distrito').hasError('required')" class="form-control-feedback">El distrito es requerido.</div>
+              </div>
+            </div>
+            <div class="form-group" [class.has-danger]="barrioForm.get('estado').invalid && barrioForm.get('estado').touched">
+              <label for="estado" class="form-control-label">Estado</label>
+              <select name="estado" id="" class="form-control" formControlName="estado">
+                <option [ngValue]="null" disabled>Selecciona una opcion</option>
+                <option *ngFor="let estado of estados" [value]="estado">{{ estado }}</option>
+              </select>
+              <div *ngIf="barrioForm.get('estado').invalid && barrioForm.get('estado').touched">
+                <div *ngIf="barrioForm.get('estado').hasError('required')" class="form-control-feedback">Selecciona un estado</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" ngProjectAs="modal-footer">
+        <button type="button" (click)="resetAll()" class="btn btn-secondary" data-dismiss="modal">
+          Cerrar
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="!barrioForm.valid">Guardar</button>
+      </div>
+    </app-modal-structure>
+  </form>
+</div>

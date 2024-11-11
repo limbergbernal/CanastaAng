@@ -1,0 +1,79 @@
+<div [class.oculto]="stateModal" class="fondo-modal animated fadeIn fast">
+  <form [formGroup]="profesionForm" (ngSubmit)="save()">
+    <app-modal-structure [title]="title ? 'Nueva Profesion': 'Editar Profesion'">
+      <div ngProjectAs="card-content">
+        <div class="row">
+          <div class="col-sm-12 col-xs-12">
+            <div class="form-group" [class.has-danger]="profesionForm.get('nombre').invalid && profesionForm.get('nombre').touched">
+              <label for="InputNombre" class="form-control-label">Nombre :</label>
+              <input type="text" formControlName="nombre" class="form-control" id="InputNombre" placeholder="nombre de la profesion">
+              <!-- <div *ngIf="unidadForm.get('nombre').invalid && unidadForm.get('nombre').touched">
+                <div *ngIf="unidadForm.get('nombre').hasError('required')" class="form-control-feedback">El nombre es requerido.</div>
+              </div> -->
+              <div *ngIf="profesionForm.get('nombre').invalid && profesionForm.get('nombre').touched">
+                  <div *ngIf="profesionForm.get('nombre').hasError('required')" class="form-control-feedback">el nombre es requerido.</div>
+              </div>
+            </div>
+            <div class="form-group" [class.has-danger]="profesionForm.get('tipo').invalid && profesionForm.get('tipo').touched">
+              <label for="SelectTipo" class="form-control-label">Tipo</label>
+              <select id="SelectTipo" class="form-control" formControlName="tipo">
+                <option [ngValue]="null" disabled>Selecciona una opcion</option>
+                <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
+              </select>
+              <div *ngIf="profesionForm.get('tipo').invalid && profesionForm.get('tipo').touched">
+                <div *ngIf="profesionForm.get('tipo').hasError('required')" class="form-control-feedback">El tipo es requerido.</div>
+              </div>
+            </div>
+            <div class="form-group" [class.has-danger]="profesionForm.get('estado').invalid && profesionForm.get('estado').touched">
+              <label for="SelectEstado" class="form-control-label">Estado</label>
+              <select id="SelectEstado" class="form-control" formControlName="estado">
+                <option [ngValue]="null" disabled>Selecciona una opcion</option>
+                <option *ngFor="let estado of estados" [value]="estado">{{ estado }}</option>
+              </select>
+              <div *ngIf="profesionForm.get('estado').invalid && profesionForm.get('estado').touched">
+                <div *ngIf="profesionForm.get('estado').hasError('required')" class="form-control-feedback">El estado es requido.</div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="col-sm-12 col-xs-12">
+            <div class="form-group" [class.has-danger]="unidadForm.get('nombre').invalid && unidadForm.get('nombre').touched">
+              <label class="form-control-label" for="nombre">Nombre</label>
+              <input type="text" formControlName="nombre" class="form-control" id="nombre" placeholder="Nombre de Unidad" />
+
+              <div *ngIf="unidadForm.get('nombre').invalid && unidadForm.get('nombre').touched">
+                <div *ngIf="unidadForm.get('nombre').hasError('required')" class="form-control-feedback">El nombre es requerido.</div>
+              </div>
+            </div>
+            <div class="form-group" [class.has-danger]="unidadForm.get('abreviacion').invalid && unidadForm.get('abreviacion').touched">
+              <label for="abreviacion" class="form-control-label">Abreviacion</label>
+              <input type="text" formControlName="abreviacion" class="form-control" id="abreviacion" placeholder="Abreviacion de Unidad">
+              <div *ngIf="unidadForm.get('abreviacion').invalid && unidadForm.get('abreviacion').touched">
+                <div *ngIf="unidadForm.get('abreviacion').hasError('required')" class="form-control-feedback">La abreviacion es requerido.</div>
+              </div>
+            </div>
+            <div class="form-group" [class.has-danger]="unidadForm.get('estado').invalid && unidadForm.get('estado').touched">
+              <label for="estado" class="form-control-label">Estado</label>
+              <select name="estado" id="" class="form-control" formControlName="estado">
+                <option [ngValue]="null" disabled>Selecciona una opcion</option>
+                <option *ngFor="let estado of estados" [value]="estado">{{ estado }}</option>
+              </select>
+              <div *ngIf="unidadForm.get('estado').invalid && unidadForm.get('estado').touched">
+                <div *ngIf="unidadForm.get('estado').hasError('required')" class="form-control-feedback">Selecciona un estado</div>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+      <div class="modal-footer" ngProjectAs="modal-footer">
+        <button (click)="onCloseModal()" type="button" class="btn btn-secondary" data-dismiss="modal">
+          Cerrar
+        </button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <!-- <button type="button" (click)="barrioService.cerrarModal()" class="btn btn-secondary" data-dismiss="modal"></button>
+          Cerrar
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="!barrioForm.valid">Guardar</button> -->
+      </div>
+    </app-modal-structure>
+  </form>
+</div>
