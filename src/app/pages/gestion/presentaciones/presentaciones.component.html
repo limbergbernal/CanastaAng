@@ -20,8 +20,8 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Unidad </h4>
-        <h6 class="card-subtitle">Unidades Registradas</h6>
+        <h4 class="card-title">Presentacion </h4>
+        <h6 class="card-subtitle">Presentaciones Registradas</h6>
         <div>
           <div class="form-group row justify-content-end">
             <label for="" class="control-label col-2 text-right align-content-center mb-0">Buscar :</label>
@@ -34,10 +34,10 @@
           </div>
         </div>
         <ag-grid-angular
-        #gridUnidad
+        #gridPresentacion
         class="ag-theme-quartz"
         [localeText]="localText"
-        [rowData]="unidades"
+        [rowData]="presentaciones"
         [getRowId]="getRowId"
         [columnDefs]="colDefs"
         [defaultColDef]="defaultColDef"
@@ -48,6 +48,7 @@
       </div>
     </div>
   </div>
-  <app-creaup-unidad (updateTable)="updateTable($event)" [title]="title" [(stateModal)]="stateModal"></app-creaup-unidad>
+  <app-modal-presentacion (updateTable)="updateTable($event)" [title]="title" [(stateModal)]="stateModal"></app-modal-presentacion>
   <!-- <app-creaup-unidad (unidadChange)="modalChange($event)" [title]="estadoTitulo" ></app-creaup-unidad> -->
 </div>
+

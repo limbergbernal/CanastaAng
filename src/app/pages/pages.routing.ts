@@ -10,6 +10,9 @@ import { authGuard } from '../guards/auth.guard';
 import { BarriosComponent } from './gestion/barrios/barrios.component';
 import { UnidadesComponent } from './gestion/unidades/unidades.component';
 import { ProfesionesComponent } from './gestion/profesiones/profesiones.component';
+import { ProductosComponent } from './gestion/productos/productos.component';
+import { PresentacionesComponent } from './gestion/presentaciones/presentaciones.component';
+import { CreateProductoComponent } from './gestion/productos/create-producto/create-producto.component';
 
 
 
@@ -27,7 +30,14 @@ const routes: Routes = [
       // { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
       { path: 'barrios', component: BarriosComponent, data:{titulo: 'Barrios y Comunidades'}},
       { path: 'unidades', component: UnidadesComponent, data:{titulo: 'Unidades'}},
-      { path: 'profesiones', component: ProfesionesComponent, data: {titulo: 'Profesiones'}}
+      { path: 'profesiones', component: ProfesionesComponent, data: {titulo: 'Profesiones'}},
+      // { path: 'productos', component: ProductosComponent, data: { titulo: 'Productos'}},
+      { path: 'productos', children: [
+        {path: '', component: ProductosComponent, data: { titulo: 'Productos'}},
+        { path: 'create', component: CreateProductoComponent, data: { titulo: 'Crear Producto'}},
+        { path: 'edit', component: CreateProductoComponent, data: { titulo: 'Editar Producto'}}
+      ]},
+      { path: 'presentaciones', component: PresentacionesComponent, data: {titulo: 'Presentaciones'}},
     ],
   },
 

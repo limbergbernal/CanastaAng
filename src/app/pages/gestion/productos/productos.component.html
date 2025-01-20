@@ -13,15 +13,15 @@
 </div>
 <div class="row" *ngIf="!cargando">
   <div class="col-12 mb-4">
-    <button class="btn btn-primary" (click)="stateModal = false;">
+    <button class="btn btn-primary" (click)="createProducto();">
       Nuevo
     </button>
   </div>
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Unidad </h4>
-        <h6 class="card-subtitle">Unidades Registradas</h6>
+        <h4 class="card-title">Productos </h4>
+        <h6 class="card-subtitle">Registradas</h6>
         <div>
           <div class="form-group row justify-content-end">
             <label for="" class="control-label col-2 text-right align-content-center mb-0">Buscar :</label>
@@ -34,10 +34,10 @@
           </div>
         </div>
         <ag-grid-angular
-        #gridUnidad
+        #gridProducto
         class="ag-theme-quartz"
         [localeText]="localText"
-        [rowData]="unidades"
+        [rowData]="productos"
         [getRowId]="getRowId"
         [columnDefs]="colDefs"
         [defaultColDef]="defaultColDef"
@@ -48,6 +48,6 @@
       </div>
     </div>
   </div>
-  <app-creaup-unidad (updateTable)="updateTable($event)" [title]="title" [(stateModal)]="stateModal"></app-creaup-unidad>
   <!-- <app-creaup-unidad (unidadChange)="modalChange($event)" [title]="estadoTitulo" ></app-creaup-unidad> -->
 </div>
+

@@ -20,7 +20,12 @@ import { CreaupUnidadComponent } from './gestion/unidades/creaup-unidad/creaup-u
 import { ProfesionesComponent } from './gestion/profesiones/profesiones.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { ModalProfesionComponent } from './gestion/profesiones/modal-profesion/modal-profesion.component';
-
+import { ProductosComponent } from './gestion/productos/productos.component';
+import { ModalProductoComponent } from './gestion/productos/modal-producto/modal-producto.component';
+import { PresentacionesComponent } from './gestion/presentaciones/presentaciones.component';
+import { ModalPresentacionComponent } from './gestion/presentaciones/modal-presentacion/modal-presentacion.component';
+import { CreateProductoComponent } from './gestion/productos/create-producto/create-producto.component';
+import { NgLabelTemplateDirective, NgOptionTemplateDirective, NgSelectComponent } from '@ng-select/ng-select';
 
 
 
@@ -39,6 +44,11 @@ import { ModalProfesionComponent } from './gestion/profesiones/modal-profesion/m
     CreaupUnidadComponent,
     ProfesionesComponent,
     ModalProfesionComponent,
+    ProductosComponent,
+    ModalProductoComponent,
+    PresentacionesComponent,
+    ModalPresentacionComponent,
+    CreateProductoComponent
 
   ],
   exports:[
@@ -56,7 +66,10 @@ import { ModalProfesionComponent } from './gestion/profesiones/modal-profesion/m
     RouterModule,
     ComponentsModule,
     ReactiveFormsModule,
-    AgGridModule
+    AgGridModule,
+    NgLabelTemplateDirective,
+    NgOptionTemplateDirective,
+    NgSelectComponent
 ]
 })
 export class PagesModule { }

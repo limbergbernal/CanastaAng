@@ -1,0 +1,100 @@
+<div class="row animated fadeIn fast" *ngIf="cargando">
+  <div class="col-12">
+    <div class="cardd">
+      <div class="card-body">
+        <div class="alert alert-info text-center" role="alert">
+          <h4 class="alert-heading">Cargando</h4>
+          <i class="fa fa-spin fa-refresh fa-2x"></i>
+          <p class="mb-0">Por favor espere...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="!cargando">
+  <div class="col-12 ">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">{{ title? 'Crear Producto': 'Actualizar' }}</h4>
+        <h6 class="card-subtitle">Nuevo</h6>
+        <div>
+          <form [formGroup]="productoForm" (ngSubmit)="save()">
+          <div class="row">
+            <div class="col-sm-12 col-xs-12">
+              <div class="form-group" [class.has-danger]="productoForm.get('nombre').invalid && productoForm.get('nombre').touched">
+                <label class="form-control-label" for="nombre">Nombre</label>
+                <input type="text" formControlName="nombre" class="form-control" id="nombre" placeholder="Nombre de producto" />
+
+                <div *ngIf="productoForm.get('nombre').invalid && productoForm.get('nombre').touched">
+                  <div *ngIf="productoForm.get('nombre').hasError('required')" class="form-control-feedback">El nombre es requerido.</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+              <div class="form-group" [class.has-danger]="productoForm.get('peso').invalid && productoForm.get('peso').touched">
+                <label for="" class="form-control-label">Peso</label>
+                <input formControlName="peso" type="text" class="form-control" id="peso" placeholder="peso del producto"/>
+                <div *ngIf="productoForm.get('peso').invalid && productoForm.get('peso').touched">
+                  <div *ngIf="productoForm.get('peso').hasError('required')" class="form-control-feedback">El peso es requerido</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+              <div class="form-group" [class.has-danger]="productoForm.get('unidad_id').invalid && productoForm.get('unidad_id').touched">
+                <label for="unidad" class="form-control-label">Unidad:</label>
+                <!-- <select formControlName="unidad_id" name="unidad_id" id="unidad" class="form-control"> -->
+                  <!-- <option [ngValue]="null" disabled>Selecciona una unidad</option> -->
+                  <!-- <option *ngFor="let unidad of unidades" [value]="unidad.id">{{ unidad.nombre }}</option> -->
+                <!-- </select> -->
+                <ng-select [items]="unidades"
+                  bindLabel="nombre"
+                  bindValue="id"
+                  placeholder="Selecciona una unidad"
+                  formControlName="unidad_id">
+              </ng-select>
+                <div *ngIf="productoForm.get('unidad_id').invalid && productoForm.get('unidad_id').touched">
+                  <div *ngIf="productoForm.get('unidad_id').hasError('required')" class="form-control-feedback">La unidad es requerida</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+              <div class="form-group" [class.has-danger]="productoForm.get('presentacion_id').invalid && productoForm.get('presentacion_id').touched">
+                <label for="presentacion" class="form-control-label">Presentacion:</label>
+                <!-- <select formControlName="presentacion_id" name="presentacion_id" id="presentacion" class="form-control"> -->
+                  <!-- <option selected [ngValue]="null" disabled>Selecciona una presentacion</option> -->
+                  <!-- <option *ngFor="let present of presentaciones" [value]="present.id">{{ present.nombre + " "+ present.abreviacion }}</option> -->
+                <!-- </select> -->
+                <ng-select [items]="presentaciones"
+                  bindLabel="nombre"
+                  bindValue="id"
+                  placeholder="Selecciona una presentacion"
+                  formControlName="presentacion_id">
+              </ng-select>
+                <div *ngIf="productoForm.get('presentacion_id').invalid && productoForm.get('presentacion_id').touched">
+                  <div *ngIf="productoForm.get('presentacion_id').hasError('required')" class="form-control-feedback">La presentacion es requerida</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+              <div class="form-group" [class.has-danger]="productoForm.get('estado').invalid && productoForm.get('estado').touched">
+                <label for="estado" class="form-control-label">Estado</label>
+                <select name="estado" id="" class="form-control" formControlName="estado">
+                  <option [ngValue]="null" disabled>Selecciona una opcion</option>
+                  <option *ngFor="let estado of estados" [value]="estado">{{ estado }}</option>
+                </select>
+                <div *ngIf="productoForm.get('estado').invalid && productoForm.get('estado').touched">
+                  <div *ngIf="productoForm.get('estado').hasError('required')" class="form-control-feedback">El estado es requerido.</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 text-center">
+            <button class="btn btn-danger mr-2" (click)="cancel()">Cancelar</button>
+              <button class="btn btn-info">Guardar</button>
+            </div>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,4 @@
+import { UsuarioService } from './services/usuario.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'canastaAng';
+  title = 'Canasta';
+  // isLoading = true;
+  // constructor(private usuarioService: UsuarioService ){
+  //   this.usuarioService.validarToken().subscribe({
+  //     next: () => {
+  //       this.isLoading = false;
+  //     }
+  //   })
+  // }
 }

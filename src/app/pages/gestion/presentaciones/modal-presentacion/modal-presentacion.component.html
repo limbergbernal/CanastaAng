@@ -1,32 +1,32 @@
 <div [class.oculto]="stateModal" [ngClass]="{'fadeOut': stateModal, 'fadeIn': !stateModal }" class="fondo-modal animated fast">
-  <form [formGroup]="unidadForm" (ngSubmit)="save()">
-    <app-modal-structure [title]="title ? 'Nueva Unidad': 'Editar Unidad'">
+  <form [formGroup]="presentacionForm" (ngSubmit)="save()">
+    <app-modal-structure [title]="title ? 'Nueva Presentacion': 'Editar Presentacion'">
       <div ngProjectAs="card-content">
         <div class="row">
           <div class="col-sm-12 col-xs-12">
-            <div class="form-group" [class.has-danger]="unidadForm.get('nombre').invalid && unidadForm.get('nombre').touched">
+            <div class="form-group" [class.has-danger]="presentacionForm.get('nombre').invalid && presentacionForm.get('nombre').touched">
               <label class="form-control-label" for="nombre">Nombre</label>
               <input type="text" formControlName="nombre" class="form-control" id="nombre" placeholder="Nombre de Unidad" />
 
-              <div *ngIf="unidadForm.get('nombre').invalid && unidadForm.get('nombre').touched">
-                <div *ngIf="unidadForm.get('nombre').hasError('required')" class="form-control-feedback">El nombre es requerido.</div>
+              <div *ngIf="presentacionForm.get('nombre').invalid && presentacionForm.get('nombre').touched">
+                <div *ngIf="presentacionForm.get('nombre').hasError('required')" class="form-control-feedback">El nombre es requerido.</div>
               </div>
             </div>
-            <div class="form-group" [class.has-danger]="unidadForm.get('abreviacion').invalid && unidadForm.get('abreviacion').touched">
+            <div class="form-group" [class.has-danger]="presentacionForm.get('abreviacion').invalid && presentacionForm.get('abreviacion').touched">
               <label for="abreviacion" class="form-control-label">Abreviacion</label>
               <input type="text" formControlName="abreviacion" class="form-control" id="abreviacion" placeholder="Abreviacion de Unidad">
-              <div *ngIf="unidadForm.get('abreviacion').invalid && unidadForm.get('abreviacion').touched">
-                <div *ngIf="unidadForm.get('abreviacion').hasError('required')" class="form-control-feedback">La abreviacion es requerido.</div>
+              <div *ngIf="presentacionForm.get('abreviacion').invalid && presentacionForm.get('abreviacion').touched">
+                <div *ngIf="presentacionForm.get('abreviacion').hasError('required')" class="form-control-feedback">La abreviacion es requerido.</div>
               </div>
             </div>
-            <div class="form-group" [class.has-danger]="unidadForm.get('estado').invalid && unidadForm.get('estado').touched">
+            <div class="form-group" [class.has-danger]="presentacionForm.get('estado').invalid && presentacionForm.get('estado').touched">
               <label for="estado" class="form-control-label">Estado</label>
               <select name="estado" id="" class="form-control" formControlName="estado">
                 <option [ngValue]="null" disabled>Selecciona una opcion</option>
                 <option *ngFor="let estado of estados" [value]="estado">{{ estado }}</option>
               </select>
-              <div *ngIf="unidadForm.get('estado').invalid && unidadForm.get('estado').touched">
-                <div *ngIf="unidadForm.get('estado').hasError('required')" class="form-control-feedback">Selecciona un estado</div>
+              <div *ngIf="presentacionForm.get('estado').invalid && presentacionForm.get('estado').touched">
+                <div *ngIf="presentacionForm.get('estado').hasError('required')" class="form-control-feedback">Selecciona un estado</div>
               </div>
             </div>
           </div>
@@ -36,7 +36,7 @@
         <button (click)="resetAll()" type="button" class="btn btn-secondary" data-dismiss="modal">
           Cerrar
         </button>
-        <button type="submit" class="btn btn-primary" [disabled]="unidadForm.invalid">Guardar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="presentacionForm.invalid">Guardar</button>
         <!-- <button type="button" (click)="barrioService.cerrarModal()" class="btn btn-secondary" data-dismiss="modal"></button>
           Cerrar
         </button>
@@ -45,4 +45,5 @@
     </app-modal-structure>
   </form>
 </div>
+
 

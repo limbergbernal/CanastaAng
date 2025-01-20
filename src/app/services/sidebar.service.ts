@@ -24,6 +24,8 @@ export class SidebarService {
         { titulo: 'Barrios', url: 'barrios'},
         { titulo: 'Profesiones', url: 'profesiones'},
         { titulo: 'Unidades', url: 'unidades'},
+        { titulo: 'Producto', url: 'productos'},
+        { titulo: 'Presentacion', url: 'presentaciones'}
       ]
     }
   ]

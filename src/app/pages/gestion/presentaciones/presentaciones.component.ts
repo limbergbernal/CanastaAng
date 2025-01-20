@@ -1,28 +1,27 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { UnidadService } from '../../../services/unidad.service';
-import { Unidad, UnidadPost } from '../../../models/unidad.model';
-import { CreaupUnidadComponent } from './creaup-unidad/creaup-unidad.component';
-import { SwalHelper } from '../../../helpers/Swal.helper';
-import { ColDef, GetRowIdFunc, GetRowIdParams } from 'ag-grid-community';
-import { AG_GRID_LOCALE_ES } from '@ag-grid-community/locale';
+import { Component, ViewChild } from '@angular/core';
+import { ModalPresentacionComponent } from './modal-presentacion/modal-presentacion.component';
+import { Presentacion } from '../../../models/presentacion.model';
 import { AgGridAngular } from 'ag-grid-angular';
+import { AG_GRID_LOCALE_ES } from '@ag-grid-community/locale';
+import { ColDef, GetRowIdFunc, GetRowIdParams } from 'ag-grid-community';
 import { AccionesComponent } from '../../../components/table/profesion/acciones/acciones.component';
+import { PresentacionService } from '../../../services/presentacion.service';
+import { SwalHelper } from '../../../helpers/Swal.helper';
 
 @Component({
-  selector: 'app-unidades',
-  templateUrl: './unidades.component.html',
+  selector: 'app-presentaciones',
+  templateUrl: './presentaciones.component.html',
   styles: ``
 })
-export class UnidadesComponent implements OnInit {
-
-  @ViewChild(CreaupUnidadComponent) modalUnidad: CreaupUnidadComponent;
+export class PresentacionesComponent {
+  @ViewChild(ModalPresentacionComponent) modalPresentacion: ModalPresentacionComponent;
   public cargando: boolean = true;
-  public unidades: Unidad[] = [];
+  public presentaciones: Presentacion[] = [];
   public stateModal: boolean = true;
   public selectedIndex = false;
 
   // VARIABLES AG-GRID
-  @ViewChild('gridUnidad') grid: AgGridAngular;
+  @ViewChild('gridPresentacion') grid: AgGridAngular;
   localText = AG_GRID_LOCALE_ES;
   public paginationPageSize = 10;
   public paginationPageSizeSelector: number[] | boolean = [10,20,50,100];
@@ -44,7 +43,7 @@ export class UnidadesComponent implements OnInit {
   public defaultColDef: ColDef = {
     flex: 1,
   }
-  constructor(private unidadService: UnidadService){
+  constructor(private presentacionService: PresentacionService){
 
   }
   public getRowId: GetRowIdFunc = (params: GetRowIdParams) => String(params.data.id);
@@ -56,9 +55,9 @@ export class UnidadesComponent implements OnInit {
     this.loadData();
   }
   loadData(): void{
-    this.unidadService.getAll().subscribe({
+    this.presentacionService.getAll().subscribe({
       next: (resp)=>{
-        this.unidades = resp.data;
+        this.presentaciones = resp.data;
         this.cargando = false;
       }
     })
@@ -66,22 +65,22 @@ export class UnidadesComponent implements OnInit {
   onFilterTextChanged(){
     this.grid.api.setGridOption("quickFilterText", (document.getElementById('filter-text') as HTMLInputElement).value);
   }
-  updateTable(unidad: Unidad):void{
+  updateTable(presentacion: Presentacion):void{
     if(this.title){
-      this.grid.api.applyTransaction({add: [unidad]});
+      this.grid.api.applyTransaction({add: [presentacion]});
     }else{
-      this.grid.api.applyTransaction({update: [ unidad]});
+      this.grid.api.applyTransaction({update: [ presentacion]});
     }
     this.reset();
   }
   onEditRow(field):void{
-    this.selectedIndex =true;
+    this.selectedIndex = true;
     this.stateModal = false;
-    this.modalUnidad.editar(field);
+    this.modalPresentacion.editar(field);
   }
   onDelete(id: bigint):void{
     if(id){
-      this.unidadService.delete(id).subscribe({
+      this.presentacionService.delete(id).subscribe({
         next: (resp)=>{
           SwalHelper.showSuccess(resp.message);
           this.grid.api.applyTransaction({remove: [{id: id}]})
@@ -93,5 +92,4 @@ export class UnidadesComponent implements OnInit {
   reset(): void{
     this.selectedIndex = false;
   }
-
 }
