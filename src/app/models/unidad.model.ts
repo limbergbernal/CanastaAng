@@ -38,5 +38,13 @@ class Unidad implements UnidadInterface {
     this.deleted_at = deleted_at;
   }
 }
+class UnidadResponse{
+  constructor(
+    public data: Unidad[]|Unidad,
+    public message: string,
+    public status: string,
+    public code: number = 200,
+  ){}
+}
 
-export { Unidad, UnidadPost };
+export { Unidad, UnidadPost, UnidadResponse };

@@ -23,7 +23,7 @@
               <label for="unidad" class="form-control-label">Unidad:</label>
               <select formControlName="unidad_id" name="unidad_id" id="unidad" class="form-control">
                 <option [ngValue]="null" disabled>Selecciona una unidad</option>
-                <option *ngFor="let unidad of unidades" [value]="unidad.id">{{ unidad.nombre }}</option>
+                <option *ngFor="let unidad of unidades" [value]="unidad['id']">{{ unidad['nombre'] }}</option>
               </select>
               <div *ngIf="productoForm.get('unidad_id').invalid && productoForm.get('unidad_id').touched">
                 <div *ngIf="productoForm.get('unidad_id').hasError('required')" class="form-control-feedback">La unidad es requerida</div>
@@ -33,7 +33,7 @@
               <label for="presentacion" class="form-control-label">Presentacion:</label>
               <select formControlName="presentacion_id" name="presentacion_id" id="presentacion" class="form-control">
                 <option selected [ngValue]="null" disabled>Selecciona una presentacion</option>
-                <option *ngFor="let present of presentaciones" [value]="present.id">{{ present.nombre + " "+ present.abreviacion }}</option>
+                <option *ngFor="let present of presentaciones" [value]="present['id']">{{ present['nombre'] }}</option>
               </select>
               <div *ngIf="productoForm.get('presentacion_id').invalid && productoForm.get('presentacion_id').touched">
                 <div *ngIf="productoForm.get('presentacion_id').hasError('required')" class="form-control-feedback">La presentacion es requerida</div>

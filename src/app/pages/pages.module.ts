@@ -26,7 +26,12 @@ import { PresentacionesComponent } from './gestion/presentaciones/presentaciones
 import { ModalPresentacionComponent } from './gestion/presentaciones/modal-presentacion/modal-presentacion.component';
 import { CreateProductoComponent } from './gestion/productos/create-producto/create-producto.component';
 import { NgLabelTemplateDirective, NgOptionTemplateDirective, NgSelectComponent } from '@ng-select/ng-select';
-
+import { ModalUsuarioComponent } from './gestion/usuarios/modal-usuario/modal-usuario.component';
+import { CrearUsuarioComponent } from './gestion/usuarios/crear-usuario/crear-usuario.component';
+import { RolesComponent } from './gestion/roles/roles.component';
+import { ModalRolComponent } from './gestion/roles/modal-rol/modal-rol.component';
+import { GpermisoComponent } from './gestion/roles/gpermiso/gpermiso.component';
+import { PermisosComponent } from './gestion/permisos/permisos.component';
 
 
 @NgModule({
@@ -48,7 +53,13 @@ import { NgLabelTemplateDirective, NgOptionTemplateDirective, NgSelectComponent 
     ModalProductoComponent,
     PresentacionesComponent,
     ModalPresentacionComponent,
-    CreateProductoComponent
+    CreateProductoComponent,
+    ModalUsuarioComponent,
+    CrearUsuarioComponent,
+    RolesComponent,
+    ModalRolComponent,
+    GpermisoComponent,
+    PermisosComponent,
 
   ],
   exports:[

@@ -43,4 +43,17 @@ class Presentacion implements PresentacionInterface{
   }
 }
 
-export {Presentacion, PresentacionPost};
+class PresentacionResponse{
+  data: Presentacion[]|Presentacion;
+  message: string;
+  status: string;
+  code?: number = 200;
+  constructor(data: Presentacion[]|Presentacion, message: string, status: string, code?: number){
+    this.data = data;
+    this.message = message;
+    this.status = status;
+    this.code = code;
+  }
+}
+
+export {Presentacion, PresentacionPost, PresentacionResponse};

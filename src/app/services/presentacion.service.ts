@@ -2,36 +2,24 @@ import { UsuarioService } from './usuario.service';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Presentacion, PresentacionPost } from '../models/presentacion.model';
+import { Presentacion, PresentacionPost, PresentacionResponse } from '../models/presentacion.model';
+import { BaseGridService } from './base-grid.service';
 
 const base_url = environment.base_url + "/presentaciones"
 @Injectable({
   providedIn: 'root'
 })
-export class PresentacionService {
+export class PresentacionService extends BaseGridService<Presentacion>{
 
-  private usuarioService = inject(UsuarioService);
-  private _presentacion;
-  constructor(private http: HttpClient) {
-
+  constructor(http: HttpClient){
+    super(http, base_url)
   }
-  set presentacion(newPresentacion: Presentacion){
-    this._presentacion = newPresentacion;
+  protected override identify(item: Presentacion) {
+    return item.id;
   }
 
-  getAll(){
-    return this.http.get<any>(base_url, this.usuarioService.headers);
+  getSelectOptions(){
+    let url = `${base_url}/getSelectOptions`
+    return this.http.get<any>(url, this.usuarioService.headers);
   }
-  create(presentacion: PresentacionPost){
-    return this.http.post<any>(base_url, presentacion, this.usuarioService.headers);
-  }
-  update(presentacion: Presentacion){
-    const url = `${base_url}/${this._presentacion.id}`;
-    return this.http.put<any>(url, presentacion, this.usuarioService.headers);
-  }
-  delete(id: bigint){
-    const url = `${base_url}/${id}`;
-    return this.http.delete<any>(url, this.usuarioService.headers);
-  }
-
 }

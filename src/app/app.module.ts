@@ -8,6 +8,7 @@ import { PagesModule } from './pages/pages.module';
 import { AppComponent } from './app.component';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { AuthModule } from './auth/auth.module';
+import { AgGridModule } from 'ag-grid-angular';
 
 @NgModule({
   declarations: [

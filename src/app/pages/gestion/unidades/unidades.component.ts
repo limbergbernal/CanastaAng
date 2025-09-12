@@ -1,96 +1,116 @@
+import { UnidadService } from './../../../services/unidad.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UnidadService } from '../../../services/unidad.service';
-import { Unidad, UnidadPost } from '../../../models/unidad.model';
+import { Unidad } from '../../../models/unidad.model';
+import { GridBaseComponent } from '../../../components/table/grid-base.component';
+import { ColDef } from 'ag-grid-community';
+import { AgGridAngular } from 'ag-grid-angular';
 import { CreaupUnidadComponent } from './creaup-unidad/creaup-unidad.component';
 import { SwalHelper } from '../../../helpers/Swal.helper';
-import { ColDef, GetRowIdFunc, GetRowIdParams } from 'ag-grid-community';
-import { AG_GRID_LOCALE_ES } from '@ag-grid-community/locale';
-import { AgGridAngular } from 'ag-grid-angular';
-import { AccionesComponent } from '../../../components/table/profesion/acciones/acciones.component';
 
 @Component({
   selector: 'app-unidades',
   templateUrl: './unidades.component.html',
   styles: ``
 })
-export class UnidadesComponent implements OnInit {
+export class UnidadesComponent extends GridBaseComponent<Unidad> implements OnInit {
 
-  @ViewChild(CreaupUnidadComponent) modalUnidad: CreaupUnidadComponent;
   public cargando: boolean = true;
   public unidades: Unidad[] = [];
   public stateModal: boolean = true;
   public selectedIndex = false;
 
-  // VARIABLES AG-GRID
+  @ViewChild('modalUnidad') modalUnidad: CreaupUnidadComponent;
+
   @ViewChild('gridUnidad') grid: AgGridAngular;
-  localText = AG_GRID_LOCALE_ES;
-  public paginationPageSize = 10;
-  public paginationPageSizeSelector: number[] | boolean = [10,20,50,100];
-  colDefs: ColDef[] = [
-    { headerName: "Id", field: 'id', hide: true},
-    { headerName: "Nombre", field: 'nombre'},
-    { headerName: "Abreviacion", field: 'abreviacion'},
-    { headerName: "Estado", field: 'estado'},
-    {
-      headerName: 'Acciones',
-      cellRenderer: AccionesComponent,
-      cellRendererParams: {
-        onEdit: this.onEditRow.bind(this),
-        onDelete: this.onDelete.bind(this),
-      },
-      cellClass: 'text-center'
-    }
-  ];
-  public defaultColDef: ColDef = {
-    flex: 1,
-  }
   constructor(private unidadService: UnidadService){
-
+    super();
   }
-  public getRowId: GetRowIdFunc = (params: GetRowIdParams) => String(params.data.id);
 
-  get title(){
-    return !this.selectedIndex;
-  }
   ngOnInit(): void {
-    this.loadData();
+    this.initializeGrid();
+    this.addActionButtons(['edit', 'delete']);
   }
-  loadData(): void{
-    this.unidadService.getAll().subscribe({
-      next: (resp)=>{
-        this.unidades = resp.data;
-        this.cargando = false;
-      }
-    })
+  override initializeGrid(): void {
+    this.columnDefs = this.getColumnDefinitions();
+    this.getRowData().then((resp) => {
+      this.setRowData(resp);
+      this.cargando = false;
+    });
+    this.enableActionColumn();
   }
-  onFilterTextChanged(){
-    this.grid.api.setGridOption("quickFilterText", (document.getElementById('filter-text') as HTMLInputElement).value);
+  override getColumnDefinitions(): ColDef[] {
+    return [
+      { headerName: 'Id', field: 'id', hide: true},
+      { headerName: 'Nombre', field: 'nombre'},
+      { headerName: 'Abreviacion', field: 'abreviacion'},
+      { headerName: 'Estado', field: 'estado'},
+    ];
   }
-  updateTable(unidad: Unidad):void{
-    if(this.title){
-      this.grid.api.applyTransaction({add: [unidad]});
-    }else{
-      this.grid.api.applyTransaction({update: [ unidad]});
-    }
-    this.reset();
-  }
-  onEditRow(field):void{
-    this.selectedIndex =true;
-    this.stateModal = false;
-    this.modalUnidad.editar(field);
-  }
-  onDelete(id: bigint):void{
-    if(id){
-      this.unidadService.delete(id).subscribe({
-        next: (resp)=>{
-          SwalHelper.showSuccess(resp.message);
-          this.grid.api.applyTransaction({remove: [{id: id}]})
+  override onEdit(rowData: any): void {
+    if(rowData){
+      this.selectedIndex = true;
+      this.stateModal = false;
+      this.unidadService.item = rowData;
+      this.grid.api.forEachNode((node) =>{
+        if(node.data.id === rowData.id){
+          node.setSelected(true);
+          this.modalUnidad.editar();
+        }else{
+          node.setSelected(false);
         }
       })
     }
   }
+  override onDelete(rowData: any): void {
+    if(rowData){
+      const id = rowData.id;
+      SwalHelper.showDialog().then((confirm) =>{
+        if(confirm){
+          this.unidadService.delete(id).subscribe({
+            next: (resp) => {
+              SwalHelper.showSuccess(resp.message);
+              this.grid.api.applyTransaction({remove: [rowData]})
+            }
+          })
+        }
+      })
+    }
+  }
+  override onFilterTextChanged(event: any): void {
+    if(this.grid.api){
+      this.grid.api.setGridOption('quickFilterText', (document.getElementById('filter-text') as HTMLInputElement).value);
+    }
+  }
 
-  reset(): void{
+  getRowData(): any{
+    return new Promise((resolve) => {
+      this.unidadService.getAll().subscribe({
+        next: (resp:any) => {
+          this.unidades = resp.data;
+          resolve(resp);
+        }
+      })
+    });
+  }
+  get title(){
+    return !this.selectedIndex;
+  }
+
+  newUnidad(): void{
+    this.selectedIndex = false;
+    this.stateModal = false;
+    this.unidadService.item = null;
+    this.grid.api.forEachNode((node) =>{
+      node.setSelected(false);
+    });
+  }
+
+  updateTable(unidad: Unidad): void {
+    if(this.title){
+      this.grid.api.applyTransaction({ add: [unidad] });
+    }else{
+      this.grid.api.applyTransaction({ update: [unidad] });
+    }
     this.selectedIndex = false;
   }
 

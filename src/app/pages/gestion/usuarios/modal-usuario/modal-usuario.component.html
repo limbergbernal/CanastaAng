@@ -1,0 +1,48 @@
+<div [class.oculto]="stateModal" [ngClass]="{'fadeOut': stateModal, 'fadeIn': !stateModal }" class="fondo-modal animated fast">
+  <form [formGroup]="usuarioForm" (ngSubmit)="save()">
+    <app-modal-structure [title]="title ? 'Nueva Presentacion': 'Editar Presentacion'">
+      <div ngProjectAs="card-content">
+        <div class="row">
+          <div class="col-sm-12 col-xs-12">
+            <div class="form-group" [class.has-danger]="usuarioForm.get('username').invalid && usuarioForm.get('username').touched">
+              <label class="form-control-label" for="nombre">Nombre</label>
+              <input type="text" formControlName="username" class="form-control" id="nombre" placeholder="Nombre de Unidad" />
+
+              <div *ngIf="FormErrorHelper.getError(usuarioForm.get('username')) as error">
+                <div class="form-control-feedback">{{ error }}</div>
+              </div>
+
+            </div>
+            <div class="form-group" [class.has-danger]="usuarioForm.get('username').invalid && usuarioForm.get('username').touched">
+              <label for="abreviacion" class="form-control-label">Abreviacion</label>
+              <input type="text" formControlName="username" class="form-control" id="abreviacion" placeholder="Abreviacion de Unidad">
+
+              <div *ngIf="FormErrorHelper.getError(usuarioForm.get('username')) as error">
+                <div class="form-control-feedback">{{ error }}</div>
+              </div>
+            </div>
+            <div class="form-group" [class.has-danger]="usuarioForm.get('estado').invalid && usuarioForm.get('estado').touched">
+              <label for="estado" class="form-control-label">Estado</label>
+              <select name="estado" id="" class="form-control" formControlName="estado">
+                <option [ngValue]="null" disabled>Selecciona una opcion</option>
+                <option *ngFor="let estado of estados" [value]="estado">{{ estado }}</option>
+              </select>
+              <div *ngIf="FormErrorHelper.getError(usuarioForm.get('estado')) as error">
+                <div class="form-control-feedback">{{ error }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" ngProjectAs="modal-footer">
+        <button (click)="onCloseModal()" type="button" class="btn btn-secondary" data-dismiss="modal">
+          Cerrar
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="usuarioForm.invalid">Guardar</button>
+      </div>
+    </app-modal-structure>
+  </form>
+</div>
+
+
+

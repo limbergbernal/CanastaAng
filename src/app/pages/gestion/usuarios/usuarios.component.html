@@ -1,1 +1,54 @@
-<p>usuarios works!</p>
+<div class="row animated fadeIn fast" *ngIf="cargando">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="alert alert-info text-center" role="alert">
+          <h4 class="alert-heading">Cargando</h4>
+          <i class="fa fa-spin fa-refresh fa-2x"></i>
+          <p class="mb-0">Por favor espere...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="!cargando">
+  <div class="col-12 mb-4">
+    <button class="btn btn-primary" routerLink="create">
+      Nuevo
+    </button>
+  </div>
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Usuarios </h4>
+        <h6 class="card-subtitle">Usuarios Registrados</h6>
+        <div>
+          <div class="form-group row justify-content-end">
+            <label for="" class="control-label col-2 text-right align-content-center mb-0">Buscar :</label>
+            <div class="col-4">
+              <input type="text"
+              #filterText
+              id="filter-text"
+              class="form-control"
+              placeholder="Buscar..."
+              (input)="onFilterTextChanged(filterText.value)">
+            </div>
+          </div>
+        </div>
+        <ag-grid-angular
+        #gridPresentacion
+        class="ag-theme-quartz"
+        [rowData]="rowData"
+        [localeText]="localText"
+        [columnDefs]="columnDefs"
+        [gridOptions]="gridOptions"
+        (cellClicked)="onCellClicked($event)"
+        ></ag-grid-angular>
+      </div>
+    </div>
+  </div>
+  <app-modal-usuario (updateTable)="updateTable($event)" [title]="title" [(stateModal)]="stateModal"></app-modal-usuario>
+  <!-- <app-modal-presentacion (updateTable)="updateTable($event)" [title]="title" [(stateModal)]="stateModal"></app-modal-presentacion> -->
+</div>
+
+

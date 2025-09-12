@@ -5,7 +5,8 @@ import { environment } from '../../environments/environment';
 import { catchError, map, Observable, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { LocalStorageService } from './local-storage.service';
-import { rejects } from 'assert';
+import { Usuario, UsuarioPost } from '../models/usuario.model';
+import { UsuarioAdapter } from './adapters/usuario.adapter';
 
 const base_url = environment.base_url;
 
@@ -14,7 +15,10 @@ const base_url = environment.base_url;
 })
 export class UsuarioService {
 
-  constructor(private http: HttpClient, private router: Router, private localStorageService: LocalStorageService) { }
+  constructor(private http: HttpClient, private adapter: UsuarioAdapter, private router: Router, private localStorageService: LocalStorageService) {
+
+   }
+
 
   get token(): string {
     return this.localStorageService.getItem('token') || '';
@@ -86,5 +90,27 @@ export class UsuarioService {
     }catch(e){
       return false;
     }
+  }
+
+  getAll(): Observable<Usuario[]>{
+    return this.http.get<any>(`${base_url}/usuarios`, this.headers).pipe(
+      map(resp => resp.data.map(usuario => Usuario.fromApi(usuario))),
+    )
+  }
+  getById(id: number): Observable<Usuario>{
+    return this.http.get<any>(`${base_url}/usuarios/${id}`, this.headers).pipe(
+      map(resp => this.adapter.fromApi(resp.data))
+    );
+  }
+
+  create(usuario: UsuarioPost): Observable<Usuario>{
+    return this.http.post<any>(`${base_url}/usuarios`, usuario.toPayLoad(), this.headers).pipe(
+      map(data => this.adapter.fromApi(data.data))
+    );
+  }
+  update(usuario: UsuarioPost): Observable<Usuario>{
+    return this.http.post<any>(`${base_url}/usuarios`, usuario.toPayLoad(), this.headers).pipe(
+      map(data => this.adapter.fromApi(data.data))
+    );
   }
 }

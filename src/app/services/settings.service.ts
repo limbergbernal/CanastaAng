@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class SettingsService {
 
-  private  linkTheme = document.querySelector("#theme");
+  private  linkTheme = document.querySelector("#theme") as HTMLLinkElement | null;
 
   constructor() {
     if(this.isLocalStorageDisponible()){

@@ -46,6 +46,24 @@ export class SwalHelper{
         title: mensaje
       });
     }
+    static toastSuccess(mensaje:string){
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "success",
+        title: "Proceso Exitoso",
+        text: mensaje
+      });
+    }
     static showDialog = async (): Promise<boolean>=>{
       return new Promise<boolean>((resolve) => {
         Swal.fire({

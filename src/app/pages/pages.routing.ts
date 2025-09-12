@@ -13,6 +13,11 @@ import { ProfesionesComponent } from './gestion/profesiones/profesiones.componen
 import { ProductosComponent } from './gestion/productos/productos.component';
 import { PresentacionesComponent } from './gestion/presentaciones/presentaciones.component';
 import { CreateProductoComponent } from './gestion/productos/create-producto/create-producto.component';
+import { UsuariosComponent } from './gestion/usuarios/usuarios.component';
+import { CrearUsuarioComponent } from './gestion/usuarios/crear-usuario/crear-usuario.component';
+import { RolesComponent } from './gestion/roles/roles.component';
+import { GpermisoComponent } from './gestion/roles/gpermiso/gpermiso.component';
+import { PermisosComponent } from './gestion/permisos/permisos.component';
 
 
 
@@ -28,6 +33,12 @@ const routes: Routes = [
       { path: 'account-settings', component: AccountSettingsComponent, data:{titulo: 'Ajustes de Cuenta'}},
       { path: 'rxjs', component: RxjsComponent, data:{titulo: 'Rxjs'}},
       // { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+      { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Usuarios'} },
+      { path: 'usuarios/create', component: CrearUsuarioComponent, data: { titulo: 'Crear Usuario'}},
+      { path: 'usuarios/edit/:id', component: CrearUsuarioComponent, data: { titulo: 'Editar Usuario'}},
+      { path: 'roles', component: RolesComponent, data: { titulo: 'Roles'}},
+      { path: 'roles/:id/permisos', component: GpermisoComponent, data: { titulo: 'Gestionar Permisos del Rol'}},
+      { path: 'permisos', component: PermisosComponent, data: { titulo: 'Permisos'}},
       { path: 'barrios', component: BarriosComponent, data:{titulo: 'Barrios y Comunidades'}},
       { path: 'unidades', component: UnidadesComponent, data:{titulo: 'Unidades'}},
       { path: 'profesiones', component: ProfesionesComponent, data: {titulo: 'Profesiones'}},

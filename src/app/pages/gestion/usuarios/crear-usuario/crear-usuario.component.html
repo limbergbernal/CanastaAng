@@ -1,0 +1,145 @@
+<div class="row">
+  <div class="col-12 mb-4">
+
+  </div>
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">{{ title ? "Nuevo Usuario" : "Editar Usuario" }} </h4>
+        <h6 class="card-subtitle">Gestion de Usuario</h6>
+        <form [formGroup]="usuarioForm" (ngSubmit)="save()">
+          <div class="row">
+            <div class="col-sm-2">
+              <div class="form-group" [class.has-danger]="usuarioForm.get('ci').invalid && usuarioForm.get('ci').touched">
+                <label for="InputEmail" class="form-control-label">Cedula</label>
+                <input type="text" formControlName="ci" class="form-control" id="InputEmail"
+                  placeholder="Cedula de Usuario">
+                <div *ngIf="FormErrorHelper.getError(usuarioForm.get('ci')) as error">
+                  <div class="form-control-feedback">{{ error }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group" [class.has-danger]="usuarioForm.get('ci').invalid && usuarioForm.get('ci').touched">
+                <label for="Opcion" class="form-control-label">Expedido</label>
+                <select name="expe" id="selectExpedido" class="form-control" formControlName="expedido">
+                  <option value="">Seleccione una Opcion</option>
+                  <option *ngFor="let expedido of expedidos" [value]="expedido.key">{{ expedido.value }}</option>
+                </select>
+                <div *ngIf="FormErrorHelper.getError(usuarioForm.get('expedido')) as error">
+                  <div class="form-control-feedback">{{ error }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group" [class.has-danger]="usuarioForm.get('nombres').invalid && usuarioForm.get('nombres').touched">
+                <label for="InputNombre" class="form-control-label">Nombre</label>
+                <input type="text" formControlName="nombres" class="form-control" id="InputNombre"
+                  placeholder="Nombre de Usuario">
+                  <div *ngIf="FormErrorHelper.getError(usuarioForm.get('nombres')) as error">
+                    <div class="form-control-feedback">{{ error }}</div>
+                  </div>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group" [class.has-danger]="usuarioForm.get('apellido_p').invalid && usuarioForm.get('apellido_p').touched">
+                <label for="InputAp_paterno" class="form-control-label">Apellido Paterno</label>
+                <input type="text" formControlName="apellido_p" class="form-control" id="InputAp_paterno"
+                  placeholder="Nombre de Usuario">
+                  <div *ngIf="FormErrorHelper.getError(usuarioForm.get('apellido_p')) as error">
+                    <div class="form-control-feedback">{{ error }}</div>
+                  </div>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group">
+                <label for="InputAp_materno" class="form-control-label">Apellido Materno</label>
+                <input type="text" formControlName="apellido_m" class="form-control" id="InputAp_materno"
+                  placeholder="Nombre de Usuario">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group" [class.has-danger]="usuarioForm.get('fecha_nac').invalid && usuarioForm.get('fecha_nac').touched">
+                <label for="InputFecha" class="form-control-label">Fecha Nac.</label>
+                <input type="date" formControlName="fecha_nac" class="form-control" id="InputFecha"
+                  placeholder="Fecha Nac de Usuario">
+                  <div *ngIf="FormErrorHelper.getError(usuarioForm.get('fecha_nac')) as error">
+                    <div class="form-control-feedback">{{ error }}</div>
+                  </div>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group" [class.has-danger]="usuarioForm.get('civil').invalid && usuarioForm.get('civil').touched">
+                <label for="SelectCivil" class="form-control-label">Estado Civil</label>
+                <select name="civil" formControlName="civil" id="SelectCivil" class="form-control">
+                  <option value="">Seleccione una Opcion</option>
+                  <option *ngFor="let civil of estadoCivil" [value]="civil">{{ civil }}</option>
+                </select>
+                <div *ngIf="FormErrorHelper.getError(usuarioForm.get('civil')) as error">
+                  <div class="form-control-feedback">{{ error }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group" [class.has-danger]="usuarioForm.get('sexo').invalid && usuarioForm.get('sexo').touched">
+                <label for="selectGenero" class="form-control-label">Genero</label>
+                <select name="genero" id="selectGenero" class="form-control" formControlName="sexo">
+                  <option value="">Seleccione</option>
+                  <option *ngFor="let genero of generos" [value]="genero">{{ genero }}</option>
+                </select>
+                <div *ngIf="FormErrorHelper.getError(usuarioForm.get('sexo')) as error">
+                    <div class="form-control-feedback">{{ error }}</div>
+                  </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group" [class.has-danger]="usuarioForm.get('email').invalid && usuarioForm.get('email').touched">
+                <label for="" class="form-control-label">Email</label>
+                <input type="email" formControlName="email" class="form-control" id="email" placeholder="Email de Usuario">
+                <div *ngIf="FormErrorHelper.getError(usuarioForm.get('email')) as error">
+                  <div class="form-control-feedback">{{ error }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label for="" class="form-control-label">Telefono</label>
+                <input type="text" formControlName="telefono" class="form-control" id="telefono" placeholder="Telefono de Usuario">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group" [class.has-danger]="usuarioForm.get('username').invalid && usuarioForm.get('username').touched">
+                <label for="" class="form-control-label">Usuario</label>
+                <input type="text" formControlName="username" class="form-control" id="usuario" placeholder="Usuario de Usuario">
+                <div *ngIf="FormErrorHelper.getError(usuarioForm.get('username')) as error">
+                  <div class="form-control-feedback">{{ error }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group" [class.has-danger]="usuarioForm.get('password').invalid && usuarioForm.get('password').touched">
+                <label for="password" class="form-control-label">Password</label>
+                <input type="text" formControlName="password" class="form-control" id="password" placeholder="Password de Usuario">
+                <div *ngIf="FormErrorHelper.getError(usuarioForm.get('password')) as error">
+                  <div class="form-control-feedback">{{ error }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col text-center">
+              <button type="button" class="btn btn-danger mr-2" (click)="router.navigate(['dashboard/usuarios'])">
+                Cancelar
+              </button>
+              <button type="submit" class="btn btn-primary" [disabled]="usuarioForm.invalid">Guardar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

@@ -36,40 +36,11 @@ export class CreateProductoComponent implements OnInit {
     this.load();
   }
   load():void{
-    this.productoService.getPresentaciones().subscribe({
-      next:(resp)=>{
-        this.presentaciones = resp.data;
-      }
-    });
-    this.productoService.getUnidades().subscribe({
-      next: (resp) => {
-        this.unidades = resp.data;
-      }
-    })
+
   }
 
   save(): void{
-    if(this.productoForm.valid){
-      if(this.title){
-        // create
-        this.productoService.create(this.productoForm.value).subscribe({
-          next: (resp) => {
-            let producto: Producto = resp.data;
-            this.resetAll();
-            SwalHelper.showSuccess(resp.message);
-          }
-        })
-      }else{
-        //update
-        this.productoService.update(this.productoForm.value).subscribe({
-          next: (resp)=> {
-            let producto: Producto = resp.data;
-            this.resetAll();
-            SwalHelper.showSuccess(resp.message);
-          }
-        })
-      }
-    }
+
   }
   cancel(): void{
     this.resetAll();

@@ -13,7 +13,7 @@
 </div>
 <div class="row" *ngIf="!cargando">
   <div class="col-12 mb-4">
-    <button class="btn btn-primary" (click)="createProducto();">
+    <button class="btn btn-primary" (click)="newProducto();">
       Nuevo
     </button>
   </div>
@@ -27,27 +27,26 @@
             <label for="" class="control-label col-2 text-right align-content-center mb-0">Buscar :</label>
             <div class="col-4">
               <input type="text"
+              #filterText
               id="filter-text"
               class="form-control"
-              (input)="onFilterTextChanged()">
+              placeholder="Buscar..."
+              (input)="onFilterTextChanged(filterText.value)">
             </div>
           </div>
         </div>
         <ag-grid-angular
         #gridProducto
         class="ag-theme-quartz"
+        [rowData]="rowData"
         [localeText]="localText"
-        [rowData]="productos"
-        [getRowId]="getRowId"
-        [columnDefs]="colDefs"
-        [defaultColDef]="defaultColDef"
-        [pagination]="true"
-        [paginationPageSize]="paginationPageSize"
-        [paginationPageSizeSelector]="paginationPageSizeSelector"
+        [columnDefs]="columnDefs"
+        [gridOptions]="gridOptions"
+        (cellClicked)="onCellClicked($event)"
         ></ag-grid-angular>
       </div>
     </div>
   </div>
-  <!-- <app-creaup-unidad (unidadChange)="modalChange($event)" [title]="estadoTitulo" ></app-creaup-unidad> -->
+  <app-modal-producto #modalProducto (updateTable)="updateTable($event)" [title]="title" [(stateModal)]="stateModal"></app-modal-producto>
 </div>
 

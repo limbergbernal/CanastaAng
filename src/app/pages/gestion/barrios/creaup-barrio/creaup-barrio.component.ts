@@ -5,9 +5,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Barrio } from '../../../../models/barrio.model';
 import {SwalHelper} from '../../../../helpers/Swal.helper';
 
-
-const ti = { ...options };
-
 @Component({
   selector: 'app-creaup-barrio',
   templateUrl: './creaup-barrio.component.html',
@@ -35,11 +32,9 @@ export class CreaupBarrioComponent implements OnInit {
     // this.barrioForm.get('estado').markAsTouched();
   }
 
-  editar(barrio: Barrio): void {
-    this.barrioService.barrio = barrio;
-    this.barrioForm.patchValue(barrio);
-    this.stateModal = false;
-    // this.barrioForm.get('estado').setValidators(Validators.required);
+  editar(): void {
+    this.title = false;
+    this.barrioForm.patchValue(this.barrioService.item);
   }
   save() {
     if (this.barrioForm.valid) {
@@ -48,18 +43,18 @@ export class CreaupBarrioComponent implements OnInit {
         //guardar barrio
         this.barrioService.create(barrio).subscribe({
           next: (resp) => {
-            let barrio: Barrio = resp.data;
+            let barrio: Barrio = resp;
             this.resetAll();
-            SwalHelper.showSuccess(resp.message);
+            SwalHelper.showSuccess(this.barrioService.message);
             this.updateTable.emit(barrio);
           },
         });
       } else {
         this.barrioService.update(barrio).subscribe({
           next: (resp) => {
-            let barrio: Barrio = resp.data;
+            let barrio: Barrio = resp;
             this.resetAll();
-            SwalHelper.showSuccess(resp.message);
+            SwalHelper.showSuccess(this.barrioService.message);
             this.updateTable.emit(barrio);
           },
         });

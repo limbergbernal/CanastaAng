@@ -8,15 +8,17 @@
               <label class="form-control-label" for="nombre">Nombre</label>
               <input type="text" formControlName="nombre" class="form-control" id="nombre" placeholder="Nombre de Unidad" />
 
-              <div *ngIf="presentacionForm.get('nombre').invalid && presentacionForm.get('nombre').touched">
-                <div *ngIf="presentacionForm.get('nombre').hasError('required')" class="form-control-feedback">El nombre es requerido.</div>
+              <div *ngIf="FormErrorHelper.getError(presentacionForm.get('nombre')) as error">
+                <div class="form-control-feedback">{{ error }}</div>
               </div>
+
             </div>
             <div class="form-group" [class.has-danger]="presentacionForm.get('abreviacion').invalid && presentacionForm.get('abreviacion').touched">
               <label for="abreviacion" class="form-control-label">Abreviacion</label>
               <input type="text" formControlName="abreviacion" class="form-control" id="abreviacion" placeholder="Abreviacion de Unidad">
-              <div *ngIf="presentacionForm.get('abreviacion').invalid && presentacionForm.get('abreviacion').touched">
-                <div *ngIf="presentacionForm.get('abreviacion').hasError('required')" class="form-control-feedback">La abreviacion es requerido.</div>
+
+              <div *ngIf="FormErrorHelper.getError(presentacionForm.get('abreviacion')) as error">
+                <div class="form-control-feedback">{{ error }}</div>
               </div>
             </div>
             <div class="form-group" [class.has-danger]="presentacionForm.get('estado').invalid && presentacionForm.get('estado').touched">
@@ -25,22 +27,18 @@
                 <option [ngValue]="null" disabled>Selecciona una opcion</option>
                 <option *ngFor="let estado of estados" [value]="estado">{{ estado }}</option>
               </select>
-              <div *ngIf="presentacionForm.get('estado').invalid && presentacionForm.get('estado').touched">
-                <div *ngIf="presentacionForm.get('estado').hasError('required')" class="form-control-feedback">Selecciona un estado</div>
+              <div *ngIf="FormErrorHelper.getError(presentacionForm.get('estado')) as error">
+                <div class="form-control-feedback">{{ error }}</div>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer" ngProjectAs="modal-footer">
-        <button (click)="resetAll()" type="button" class="btn btn-secondary" data-dismiss="modal">
+        <button (click)="onCloseModal()" type="button" class="btn btn-secondary" data-dismiss="modal">
           Cerrar
         </button>
         <button type="submit" class="btn btn-primary" [disabled]="presentacionForm.invalid">Guardar</button>
-        <!-- <button type="button" (click)="barrioService.cerrarModal()" class="btn btn-secondary" data-dismiss="modal"></button>
-          Cerrar
-        </button>
-        <button type="submit" class="btn btn-primary" [disabled]="!barrioForm.valid">Guardar</button> -->
       </div>
     </app-modal-structure>
   </form>
